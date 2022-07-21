@@ -3,8 +3,13 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+const cors = require('cors');
+app.use(cors({
 
- var port = process.env.PORT || 3000
+  origin: "http://127.0.0.1:5501",
+
+}))
+ var port = process.env.PORT || 8000
 
 
 const users = {};
