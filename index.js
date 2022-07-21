@@ -4,7 +4,7 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-//  var port = process.env.PORT || 3000
+ var port = process.env.PORT || 3000
 
 
 const users = {};
@@ -32,6 +32,6 @@ io.on("connection", (socket) => {
 
 });
 
-http.listen(8000, function(){
+http.listen(port, function(){
 console.log('listening on *:8000');
 });
