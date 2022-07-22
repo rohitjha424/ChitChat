@@ -1,5 +1,6 @@
 body {
-  background-image: linear-gradient(rgb(255, 255, 255), rgb(109, 39, 239));
+  /* background-image: linear-gradient(rgb(255, 255, 255), rgb(109, 39, 239)); */
+  background-image: url("slider.png");
   height: 100vh;
 }
 
@@ -7,6 +8,7 @@ h1 {
   margin: 9px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  color: white;
 }
 .logo {
   display: block;
@@ -17,7 +19,8 @@ h1 {
 
 .container {
   max-width: 995px;
-  background-color: #fffbd6;
+  /* background-color: #fffbd6; */
+  background-image: url("bg.jpg");
   margin: auto;
   height: 60vh;
   border: 2px solid black;
@@ -39,6 +42,8 @@ h1 {
 .left {
   float: left;
   clear: both;
+  background-color: #383440;
+  color: white;
 }
 .right {
   float: right;
@@ -81,6 +86,7 @@ h1 {
 
 footer {
   margin: 20px;
+  padding: 50px 0px 20px 0px;
   display: block;
   margin: auto;
   text-align: center;
@@ -88,15 +94,18 @@ footer {
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-footer p {
-  margin-top: 50px;
+footer a{
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
+
 
 
 .middler{
   display: flex;
   margin: auto;
-  max-width: 20%;
+  width: fit-content;
   padding: 10px;
   background-color: red;
   border: 2px solid black;
@@ -105,19 +114,27 @@ footer p {
   margin-top: 5px;
   
   clear: both;
+  justify-content: center;
   
 }
 .middleg{
   display: flex;
   margin: auto;
-  max-width: 20%;
+  width:fit-content ;
   padding: 10px;
   background-color: green;
   border: 2px solid black;
   border-radius: 6px;
   color: white;
   margin-top: 5px;
+  justify-content: center;
   
   clear: both;
   
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: medium;
+  }
 }
