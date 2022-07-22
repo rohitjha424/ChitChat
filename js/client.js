@@ -50,7 +50,9 @@ socket.emit("new-user-joined", name);
 
   //if a new user joins , Receive user's name from the server
 socket.on('user-joined', (name) => {
-  append(`${name} Joined the chat`, 'left');
+  append(`${name} Joined the chat`, 'middleg');
+  audio.play();
+
 });
 
 //if server sends a message , receive it
@@ -61,7 +63,8 @@ socket.on('receive', data => {
 
 //idf a user leaves the chat , append the info to the container/ let all know!
 socket.on('left', name => {
-  append(`${name} left the chat`, 'middle');
+  append(`${name} left the chat`, 'middler');
+  audio.play();
   
 });
 
