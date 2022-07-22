@@ -91,3 +91,16 @@ footer {
 footer p {
   margin-top: 50px;
 }
+
+
+.middle{
+  display: flex;
+  margin: auto;
+  max-width: 20%;
+  padding: 10px;
+  background-color: red;
+  border: 2px solid black;
+  border-radius: 6px;
+  color: white;
+  
+}
