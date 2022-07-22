@@ -1,4 +1,4 @@
-const socket = io("https://ourchitchat.herokuapp.com");
+const socket = io("http://localhost:8000");
 
 //Get DOM elements in respective Js variables
 const form = document.getElementById("send-container");
@@ -62,6 +62,7 @@ socket.on('receive', data => {
 //idf a user leaves the chat , append the info to the container/ let all know!
 socket.on('left', name => {
   append(`${name} left the chat`, 'left');
+  
 });
 
 
@@ -75,6 +76,7 @@ form.addEventListener('submit', (e)=>{
         append(`You: ${message}`, 'right');
         socket.emit('send', message);
         messageInput.value = '';
+     
         scrollToLast();
     }
 })

@@ -7,8 +7,11 @@ const cors = require('cors');
 app.use(cors({
 
   origin: "*",
+  
 
 }))
+
+
  var port = process.env.PORT || 8000
 
 
@@ -40,3 +43,5 @@ io.on("connection", (socket) => {
 http.listen(port, function(){
 console.log('listening on *:8000');
 });
+
+
