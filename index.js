@@ -1,47 +1,48 @@
-//node Server which will handle socket io connections
-// const io = require("socket.io")(8000);
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-const cors = require('cors');
-app.use(cors({
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
 
-  origin: "*",
-  
+const app = express();
+app.use(cors());
 
-}))
+const server = http.createServer(app);
 
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
- var port = process.env.PORT || 8000
-
+const PORT = process.env.PORT || 8000;
 
 const users = {};
 
 io.on("connection", (socket) => {
-    //If a new user joins the chat then others would get to know!
-  socket.on("new-user-joined", (name) => {
-    users[socket.id] = name;
-    socket.broadcast.emit("user-joined", name);
+  console.log("User connected:", socket.id);
+
+  socket.on("new-user-joined", (userName) => {
+    users[socket.id] = userName;
+    socket.broadcast.emit("user-joined", userName);
   });
 
-
-  //if someone sends a message, broadcast it to all people!
   socket.on("send", (message) => {
-    socket.broadcast.emit("receive", {message: message, name: users[socket.id]});
+    socket.broadcast.emit("receive", {
+      message,
+      name: users[socket.id]
+    });
   });
 
-  //if someone leaves the chat, all others would get to know!
-  socket.on("disconnect", (message) => {
-    socket.broadcast.emit("left", users[socket.id]);
-    delete users[socket.id];
-
+  socket.on("disconnect", () => {
+    if (users[socket.id]) {
+      socket.broadcast.emit("left", users[socket.id]);
+      delete users[socket.id];
+    }
+    console.log("User disconnected:", socket.id);
   });
-
-
 });
 
-http.listen(port, function(){
-console.log('listening on *:8000');
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-
