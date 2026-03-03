@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
   const user = users[socket.id];
 
   if (user) {
-    io.to(user.roomName).emit("receive", {
+    socket.to(user.roomName).emit("receive", {
       message,
       name: user.userName
     });
