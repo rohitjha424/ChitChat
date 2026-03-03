@@ -23,13 +23,24 @@ const append = (message, position) => {
   scrollToLast();
 };
 
+//Asking UserName
 let userName = prompt("Enter your name to join");
 
 if (!userName || userName.trim() === "") {
   window.location.reload();
 }
+//Asking chat RoomName
+let roomName = prompt("Enter room name to join");
 
-socket.emit("new-user-joined", userName);
+if (!roomName || roomName.trim() === "") {
+  window.location.reload();
+}
+
+//Sending Both UserName and RoomName
+socket.emit("join-room", {
+  userName,
+  roomName
+});
 
 socket.on("user-joined", (name) => {
   append(`${name} joined the chat`, "middleg");
