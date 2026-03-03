@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,16 +15,58 @@
       <img class="logo" src="chat.png" alt="Logo" />
       <h1>ChitChat - A Real Time Chat App</h1>
     </nav>
-    <div class="container" id="myDiv">
+
+    <!-- Home Screen Section  -->
+    <div id="home-section" class="center-container">
+      <button id="create-btn">Start New Chat</button>
+      <button id="join-btn">Join Existing Chat</button>
     </div>
-    <div class="send">
-      <form action="#" id="send-container">
+
+    <!-- Room Creation Section -->
+    <div id="create-section" class="center-container" style="display: none">
+      <h2>Create New Room</h2>
+      <input type="text" id="create-name" placeholder="Enter your name" />
+      <button id="create-room-btn">Create Room</button>
+      <button id="back-btn1" class="back">Back</button>
+    </div>
+
+    <!-- Existing Room Joining Section  -->
+    <div id="join-section" class="center-container" style="display: none">
+      <h2>Join Existing Room</h2>
+      <input type="text" id="join-name" placeholder="Enter your name" />
+      <input
+        type="text"
+        id="room-code"
+        placeholder="Enter Room Code (abc-xyz)"
+      />
+      <button id="join-room-btn">Join Room</button>
+      <button id="back-btn2" class="back">Back</button>
+    </div>
+
+    <!-- Room Discription and leave button  -->
+     <div id="room-des" class="center-container" style="display: none">
+      <h2>Room ID : XYZ </h2>
+      <button id="leave-btn" class="back">Leave Chat</button>
+    </div>
+
+    <!-- Chat Container Section  -->
+    <div class="container" id="myDiv" style="display: none"></div>
+
+    <!-- Message Send Section  -->
+    <div class="send" >
+      <form action="#" id="send-container" style="display: none">
         <input type="text" name="messageInp" id="messageInp" />
         <button class="btn" type="submit"><strong>Send</strong></button>
       </form>
     </div>
+
+    <!-- Footer  -->
     <footer>
-      Developed by &nbsp - &nbsp <a href="https://github.com/rohitjha424/"> Rohit Kumar Jha</a>
+      Developed by &nbsp - &nbsp
+      <a href="https://github.com/rohitjha424/"> Rohit Kumar Jha</a>
     </footer>
+
+    <!-- End of Body  -->
   </body>
+
 </html>
