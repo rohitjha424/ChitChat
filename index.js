@@ -25,17 +25,26 @@ const users = {};
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  socket.on("new-user-joined", (userName) => {
-    users[socket.id] = userName;
-    socket.broadcast.emit("user-joined", userName);
-  });
+  socket.on("join-room", ({ userName, roomName }) => {
+  users[socket.id] = { userName, roomName };
+
+  socket.join(roomName);
+
+  socket.to(roomName).emit("user-joined", userName);
+
+  console.log(`${userName} joined ${roomName}`);
+});
 
   socket.on("send", (message) => {
-    socket.broadcast.emit("receive", {
+  const user = users[socket.id];
+
+  if (user) {
+    io.to(user.roomName).emit("receive", {
       message,
-      name: users[socket.id]
+      name: user.userName
     });
-  });
+  }
+});
 
   socket.on("disconnect", () => {
     if (users[socket.id]) {
