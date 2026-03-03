@@ -1,60 +1,110 @@
 const socket = io();
+
 const form = document.getElementById("send-container");
 const messageInput = document.getElementById("messageInp");
 const messageContainer = document.querySelector(".container");
-
 const audio = new Audio("ting.mp3");
 
-function scrollToLast() {
-  const myDiv = document.getElementById("myDiv");
-  myDiv.scrollTop = myDiv.scrollHeight;
-}
+let currentUserName = "";
+let currentRoomCode = "";
 
-const append = (message, position) => {
-  const messageElement = document.createElement("div");
-  messageElement.innerText = message;
-  messageElement.classList.add("message", position);
-  messageContainer.append(messageElement);
+/* ---------------- UI NAVIGATION ---------------- */
 
-  if (position === "left") {
-    audio.play();
-  }
-
-  scrollToLast();
+document.getElementById("create-btn").onclick = () => {
+  document.getElementById("home-section").style.display = "none";
+  document.getElementById("create-section").style.display = "flex";
 };
 
-//Asking UserName
-let userName = prompt("Enter your name to join");
+document.getElementById("join-btn").onclick = () => {
+  document.getElementById("home-section").style.display = "none";
+  document.getElementById("join-section").style.display = "flex";
+};
 
-if (!userName || userName.trim() === "") {
-  window.location.reload();
+document.getElementById("back-btn1").onclick =
+document.getElementById("back-btn2").onclick = () => {
+  document.getElementById("home-section").style.display = "flex";
+  document.getElementById("create-section").style.display = "none";
+  document.getElementById("join-section").style.display = "none";
+};
+
+/* ---------------- CREATE ROOM ---------------- */
+
+document.getElementById("create-room-btn").onclick = () => {
+  const name = document.getElementById("create-name").value.trim();
+
+  if (!name) {
+    alert("Enter your name");
+    return;
+  }
+
+  currentUserName = name;
+  socket.emit("create-room", { userName: name });
+};
+
+/* ---------------- JOIN ROOM ---------------- */
+
+document.getElementById("join-room-btn").onclick = () => {
+  const name = document.getElementById("join-name").value.trim();
+  const roomCode = document.getElementById("room-code").value.trim();
+
+  if (!name || !roomCode) {
+    alert("Enter all fields");
+    return;
+  }
+
+  currentUserName = name;
+  socket.emit("join-existing-room", { userName: name, roomCode });
+};
+
+/* ---------------- ENTER CHAT SCREEN ---------------- */
+
+function enterChatScreen(roomCode) {
+  currentRoomCode = roomCode;
+
+  document.getElementById("home-section").style.display = "none";
+  document.getElementById("create-section").style.display = "none";
+  document.getElementById("join-section").style.display = "none";
+
+  document.getElementById("myDiv").style.display = "block";
+  document.getElementById("send-container").style.display = "flex";
+  document.getElementById("room-des").style.display = "flex";
+
+  document.querySelector("#room-des h2").innerText =
+    "Room ID : " + roomCode;
 }
-//Asking chat RoomName
-let roomName = prompt("Enter room name to join");
 
-if (!roomName || roomName.trim() === "") {
-  window.location.reload();
-}
+/* ---------------- SOCKET EVENTS ---------------- */
 
-//Sending Both UserName and RoomName
-socket.emit("join-room", {
-  userName,
-  roomName
+socket.on("room-created", ({ roomCode }) => {
+  audio.play();
+  enterChatScreen(roomCode);
+});
+
+socket.on("room-joined", ({ roomCode }) => {
+  audio.play();
+  enterChatScreen(roomCode);
+});
+
+socket.on("room-error", (message) => {
+  alert(message);
 });
 
 socket.on("user-joined", (name) => {
-  append(`${name} joined the chat`, "middleg");
   audio.play();
+  append(`${name} joined the chat`, "middleg");
 });
 
 socket.on("receive", (data) => {
+  audio.play();
   append(`${data.name}: ${data.message}`, "left");
 });
 
 socket.on("left", (name) => {
-  append(`${name} left the chat`, "middler");
   audio.play();
+  append(`${name} left the chat`, "middler");
 });
+
+/* ---------------- MESSAGE SEND ---------------- */
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -67,3 +117,25 @@ form.addEventListener("submit", (e) => {
     messageInput.value = "";
   }
 });
+
+/* ---------------- LEAVE ROOM ---------------- */
+
+document.getElementById("leave-btn").onclick = () => {
+  socket.disconnect();
+  window.location.reload();
+};
+
+/* ---------------- MESSAGE UI ---------------- */
+
+function scrollToLast() {
+  const myDiv = document.getElementById("myDiv");
+  myDiv.scrollTop = myDiv.scrollHeight;
+}
+
+function append(message, position) {
+  const messageElement = document.createElement("div");
+  messageElement.innerText = message;
+  messageElement.classList.add("message", position);
+  messageContainer.append(messageElement);
+  scrollToLast();
+}

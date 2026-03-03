@@ -1,7 +1,6 @@
 body {
-  /* background-image: linear-gradient(rgb(255, 255, 255), rgb(109, 39, 239)); */
-  background-image: url("slider.png");
-  height: 100vh;
+  background: url("slider.png") no-repeat center center fixed;
+  background-size: cover;
 }
 
 h1 {
@@ -37,7 +36,18 @@ h1 {
   margin: 12px 12px;
   border: 2px solid black;
   border-radius: 10px;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 .left {
   float: left;
@@ -51,7 +61,7 @@ h1 {
 }
 
 #send-container {
-    display: flex;
+  display: flex;
   margin: auto;
   text-align: center;
   max-width: 985px;
@@ -94,15 +104,13 @@ footer {
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-footer a{
+footer a {
   cursor: pointer;
   text-decoration: none;
   color: white;
 }
 
-
-
-.middler{
+.middler {
   display: flex;
   margin: auto;
   width: fit-content;
@@ -112,15 +120,14 @@ footer a{
   border-radius: 6px;
   color: white;
   margin-top: 5px;
-  
+
   clear: both;
   justify-content: center;
-  
 }
-.middleg{
+.middleg {
   display: flex;
   margin: auto;
-  width:fit-content ;
+  width: fit-content;
   padding: 10px;
   background-color: green;
   border: 2px solid black;
@@ -128,13 +135,82 @@ footer a{
   color: white;
   margin-top: 5px;
   justify-content: center;
-  
+
   clear: both;
-  
 }
 
 @media screen and (max-width: 600px) {
   h1 {
     font-size: medium;
   }
+}
+
+/* new Styling  */
+.center-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.center-container h1 {
+  color: white;
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin: 9px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-style: italic;
+}
+
+#create-name,
+#join-name,
+#room-code {
+  font-size: 15px;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+#create-section,
+#join-section {
+  flex-direction: column;
+  color: white;
+}
+
+button {
+  padding: 12px 25px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #00c6ff;
+  color: black;
+  font-weight: bold;
+}
+#back-btn1,
+#back-btn2 {
+  background-color: yellow;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#room-des{
+  height: auto;
+  justify-content: space-around;
+}
+#leave-btn {
+  background-color: red;
+  height: 10vh;
 }
