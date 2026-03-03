@@ -47,12 +47,13 @@ io.on("connection", (socket) => {
 });
 
   socket.on("disconnect", () => {
-    if (users[socket.id]) {
-      socket.broadcast.emit("left", users[socket.id]);
-      delete users[socket.id];
-    }
-    console.log("User disconnected:", socket.id);
-  });
+  const user = users[socket.id];
+
+  if (user) {
+    socket.to(user.roomName).emit("left", user.userName);
+    delete users[socket.id];
+  }
+});
 });
 
 server.listen(PORT, () => {
