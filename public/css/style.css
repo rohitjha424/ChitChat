@@ -82,8 +82,13 @@ h1 {
   width: 70%;
   border: 2px solid black;
   border-radius: 6px;
-  height: 39px;
+  min-height: 39px;
+  max-height: 120px;
   font-size: 17px;
+  padding: 8px;
+  resize: none;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 .btn {
   cursor: pointer;
@@ -142,6 +147,12 @@ footer a {
 @media screen and (max-width: 600px) {
   h1 {
     font-size: medium;
+  }
+   #messageInp {
+    width: 65%;
+  }
+  .btn {
+    width: 25%;
   }
 }
 
