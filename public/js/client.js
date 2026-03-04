@@ -2,6 +2,19 @@ const socket = io();
 
 const form = document.getElementById("send-container");
 const messageInput = document.getElementById("messageInp");
+/* -------- AUTO GROW TEXTAREA -------- */
+
+messageInput.addEventListener("input", function () {
+  this.style.height = "auto";
+  this.style.height = this.scrollHeight + "px";
+});
+messageInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    form.dispatchEvent(new Event("submit"));
+  }
+});
+
 const messageContainer = document.querySelector(".container");
 const audio = new Audio("ting.mp3");
 
@@ -115,6 +128,7 @@ form.addEventListener("submit", (e) => {
     append(`You: ${message}`, "right");
     socket.emit("send", message);
     messageInput.value = "";
+    messageInput.style.height = "39px";
   }
 });
 
